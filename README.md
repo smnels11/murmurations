@@ -146,17 +146,21 @@ For the remainder of this section, let:
 ### The Conductor of an Elliptic Curve
 
 The *conductor* of $E$, denoted $N(E)$, is
+
 $$
-N(E) : = \prod_{p \text{ prime}} p^{e_{p}} \, ,
+N(E) := \prod_{p \text{ prime}} p^{e_{p}} ,
 $$
+
 where
+
 $$
-e_{p} : = \begin{cases}
-0              & \text{ if } E \text{ has good reduction at } p \, , \\
-1              & \text{ if } E \text{ has multiplicative reduction at } p \, , \\
-2 + \delta_{p} & \text{ if } E \text{ has additive reduction at } p \, . \\
+e_{p} := \begin{cases}
+0              & \text{ if } E \text{ has good reduction at } p , \\
+1              & \text{ if } E \text{ has multiplicative reduction at } p , \\
+2 + \delta_{p} & \text{ if } E \text{ has additive reduction at } p . \\
 \end{cases}
 $$
+
 We will not discuss $\delta_{p}$ beyond noting that it is a measure of the wild ramification in the action of the inertia group on the Tate module $T_{\ell}(E)$.
 
 For our purposes, the following properties are the most relevant:
@@ -164,51 +168,64 @@ For our purposes, the following properties are the most relevant:
 * $N(E)$ is invariant under isogeny.
 
 Throughout this project, we use the conductor to organize and construct datasets of elliptic curves. For example, one may consider all curves whose conductors lie within prescribed bounds. To this end, for positive integers $N_{1}, N_{2}$, we define the set $\mathcal{E}[N_{1}, N_2]$ to be the set of elliptic curves over $\mathbb{Q}$ satisfying $N_{1} \leq N(E) \leq N_{2}$:
-$$
-\mathcal{E}[N_{1}, N_{2}] : = \{ E / \mathbb{Q} : N_{1} \leq N(E) \leq N_{2} \} \, .
-$$
+
+```math
+\mathcal{E}[N_{1}, N_{2}] := \{ E / \mathbb{Q} : N_{1} \leq N(E) \leq N_{2} \} .
+```
+
 In practice, we consider *isogeny classes* of elliptic curves in $\mathcal{E}[N_{1}, N_{2}]$ since $N(E)$ is invariant under isogeny.
 
 ### $L$-Functions and Frobenius Traces
 
-If $E$ has good reduction at $p$, $L_{p}(E, s)$ is the *local $L$-factor* defined by
+If $E$ has good reduction at $p$, $L_{p}(E, s)$ is the *local* $L$-*factor* defined by
+
 $$
-L_{p}(E, s) : = 1 - a_{p}(E)p^{-s} + p^{1 - 2s} \, ,
+L_{p}(E, s) := 1 - a_{p}(E)p^{-s} + p^{1 - 2s} ,
 $$
-where $s \in \mathbb{C}$, 
+
+where $s \in \mathbb{C}$,
+
 $$
-a_{p}(E) : = p + 1 - \#E(\mathbb{F}_{p}) \, ,
-$$ 
-and $\#E(\mathbb{F}_{p})$ is the number of points of $E$ over $\mathbb{F}_{p}$.
+a_{p}(E) := p + 1 - \lvert E(\mathbb{F}_{p}) \rvert,
+$$
+
+and $`\lvert \mathbb{F}_{p}(E) \rvert`$ is the number of points of $E$ over $\mathbb{F}_{p}$.
 
 For primes $p$ of bad reduction, $L_{p}(E, s)$ is
+
 $$
-L_{p}(E, s) : = 1 - a_{p}(E)p^{-s} \, ,
+L_{p}(E, s) := 1 - a_{p}(E)p^{-s} ,
 $$
+
 where
+
 $$
-a_{p}(E) : = \begin{cases}
-\phantom{-}1 & \text{ if } E \text{ has split multiplicative reduction at } p \, , \\
-          -1 & \text{ if } E \text{ has nonsplit multiplicative reduction at } p \, , \\
-\phantom{-}0 & \text{ if } E \text{ has additive reduction at } p \, .
+a_{p}(E) := \begin{cases}
+ 1 & \text{ if } E \text{ has split multiplicative reduction at } p , \\
+-1 & \text{ if } E \text{ has nonsplit multiplicative reduction at } p , \\
+ 0 & \text{ if } E \text{ has additive reduction at } p .
 \end{cases}
 $$
 
-The *$L$-function* of $E$ is defined by
+The $L$-*function* of $E$ is defined by
+
 $$
-L(E, s) : = \prod_{p \text{ prime}} \frac{1}{L_{p}(E, s)} \, .
+L(E, s) := \prod_{p \text{ prime}} \frac{1}{L_{p}(E, s)} .
 $$
-The product defining $L(E, s)$ converges in the half-plane $\operatorname{Re}(s) > \frac{3}{2}$. It is well known that $L(E, s)$ admits a holomorphic continuation to all of $\mathbb{C}$ and satisfies a functional equation relating $s$ and $2 - s$.
+
+The product defining $L(E, s)$ converges in the half-plane $\Re(s) > \frac{3}{2}$. It is well known that $L(E, s)$ admits a holomorphic continuation to all of $\mathbb{C}$ and satisfies a functional equation relating $s$ and $2 - s$.
 
 The quantities $a_{p}(E)$ are known as the *Frobenius traces* of $E$ and, like $N(E)$, are isogeny-invariant. They are central to many important questions in number theory, but also play an important role in HLOP's work. In the machine learning framework described earlier, elliptic curves constitute the observations in the datasets of interest, while collections of Frobenius traces (and quantities derived from them) serve as the features used to train and analyze models.
 
 ### Rank and Torsion
 
 By the Mordell-Weil Theorem (1922), the set of $\mathbb{Q}$-rational points of $E$, denoted $E(\mathbb{Q})$, forms a finitely generated Abelian group. Consequently, $E(\mathbb{Q})$ admits a decomposition of the form
+
 $$
-E(\mathbb{Q}) \simeq E(\mathbb{Q})_{\mathrm{tors}} \oplus \mathbb{Z}^{r_{E}} \, ,
+E(\mathbb{Q}) \simeq E(\mathbb{Q})_{\mathrm{tors}} \oplus \mathbb{Z}^{r_{E}} ,
 $$
-where $E(\mathbb{Q})_{\text{tors}}$ is the finite subgroup consisting of points of finite order, called the *torsion subgroup*, and $r_{E} \in \mathbb{Z}_{\geq 0}$ is the *rank* of $E$.
+
+where $`E(\mathbb{Q})_{\mathrm{tors}}`$ is the finite subgroup consisting of points of finite order, called the *torsion subgroup*, and $r_{E} \in \mathbb{Z}_{\geq 0}$ is the *rank* of $E$.
 
 The rank is one of the most mysterious arithmetic invariants of an elliptic curve. Despite decades of intensive study, no algorithm is known that provably computes the rank of every elliptic curve over $\mathbb{Q}$. Further, whether the set of ranks is bounded or not remains an open question.
 
